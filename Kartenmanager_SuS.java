@@ -213,8 +213,8 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         double d = 0;
         double startZeit;
         double endZeit;
-        int durchläufe = 100;
-        int steps = 2;
+        int durchläufe = 50;
+        int steps = 10;
         for(int i = steps; i < 1199; i = i+steps)
         {
             startZeit = System.nanoTime();
@@ -232,7 +232,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
             if(avg < 4)Grafik.Do(i,avg*200,1,steps);
             if(avg > 4)i = 1199;
         }
-        
+
         for(int i = steps; i < 1199; i = i+steps)
         {
             startZeit = System.nanoTime();
@@ -250,7 +250,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
             Grafik.Do(i,avg*200,2,steps);
             if(avg > 4)i = 1199;
         }
-        
+
         for(int i = steps; i < 1199; i = i+steps)
         {
             startZeit = System.nanoTime();
@@ -281,9 +281,9 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
             initialisiereKarten(0);
             switch(auswahlSort.index())
             {
-                case(1): Blasensortierung(); break;
-                case(2): InsertSort(); break;
-                case(3): mergesort(); break;
+                    case(1): Blasensortierung(); break;
+                    case(2): InsertSort(); break;
+                    case(3): mergesort(); break;
             }
         }
         endZeit = System.nanoTime();
