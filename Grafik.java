@@ -44,6 +44,15 @@ public class Grafik extends Ereignisanwendung
         pen.zeichneRechteck(1200,800);
         pen.bewegeBis(90,910);
         pen.schreibeText("0");
+        for (int i = 1; i <= 4; i++)
+        {
+            pen.bewegeBis(90,900-(200*i));
+            pen.runter();
+            pen.bewegeUm(20);
+            pen.hoch();
+            pen.bewegeUm(-20);
+            pen.schreibeZahl(i);
+        }
         for(int i = 1;i <= 12; i++)
         {
             pen.bewegeBis(100+(100*i),910);
@@ -54,7 +63,6 @@ public class Grafik extends Ereignisanwendung
             pen.bewegeUm(-20);
             pen.schreibeZahl(i*100);
 
-            
         }
     }
 
@@ -63,30 +71,30 @@ public class Grafik extends Ereignisanwendung
         stepos = steps;
         switch(algo)
         {
-            case(1):
-            BubbleSave[x] = y;
-            pen.setzeFarbe(0);
-            pen.bewegeBis(100+(x-stepos),-BubbleSave[x-stepos]+900);
-            pen.runter();
-            pen.bewegeBis(100+x,-y+900);
-            pen.hoch();
-            break;
-            case(2):
-            InsertSave[x] = y;
-            pen.setzeFarbe(1);
-            pen.bewegeBis(100+(x-stepos),-InsertSave[x-stepos]+900);
-            pen.runter();
-            pen.bewegeBis(100+x,-y+900);
-            pen.hoch();
-            break;
-            case(3):
-            MergeSave[x] = y;
-            pen.setzeFarbe(2);
-            pen.bewegeBis(100+(x-stepos),-MergeSave[x-stepos]+900);
-            pen.runter();
-            pen.bewegeBis(100+x,-y+900);
-            pen.hoch();
-            break;
+                case(1):
+                BubbleSave[x] = y;
+                pen.setzeFarbe(0);
+                pen.bewegeBis(100+(x-stepos),-BubbleSave[x-stepos]+900);
+                pen.runter();
+                pen.bewegeBis(100+x,-y+900);
+                pen.hoch();
+                break;
+                case(2):
+                InsertSave[x] = y;
+                pen.setzeFarbe(1);
+                pen.bewegeBis(100+(x-stepos),-InsertSave[x-stepos]+900);
+                pen.runter();
+                pen.bewegeBis(100+x,-y+900);
+                pen.hoch();
+                break;
+                case(3):
+                MergeSave[x] = y;
+                pen.setzeFarbe(2);
+                pen.bewegeBis(100+(x-stepos),-MergeSave[x-stepos]+900);
+                pen.runter();
+                pen.bewegeBis(100+x,-y+900);
+                pen.hoch();
+                break;
         }
 
     }
