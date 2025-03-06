@@ -66,6 +66,7 @@ public class Grafik extends Ereignisanwendung
             pen.schreibeZahl(i*100);
 
         }
+        pen.dreheBis(0);
     }
 
     public void do_Test(int x, double y, int algo, int steps)
