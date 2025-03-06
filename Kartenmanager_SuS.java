@@ -125,7 +125,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         updateKnopf.setzeBearbeiterGeklickt("Update_Klick");
         einfKnopf.setzeBearbeiterGeklickt("Einfuegen_Klick");
         entfKnopf.setzeBearbeiterGeklickt("Entfernen_Klick");
-        WARNUNG.setzeBearbeiterGeklickt("GrafikSort");
+        WARNUNG.setzeBearbeiterGeklickt("Grafiksort_Test");
 
         // 5) Listen-Datenstruktur anlegen
         karten = new Liste<Karte>(); 
@@ -213,8 +213,8 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         double d = 0;
         double startZeit;
         double endZeit;
-        int durchläufe = 50;
-        int steps = 10;
+        int durchläufe = 2000;
+        int steps = 2;
         for(int i = steps; i < 1199; i = i+steps)
         {
             startZeit = System.nanoTime();
@@ -267,6 +267,39 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
             double avg = d/durchläufe;            
             Grafik.Do(i,avg*200,3,steps);
             if(avg > 4)i = 1199;
+        }
+    }
+
+    public void Grafiksort_Test()
+    {
+        Grafik = new Grafik();
+        double d = 0;
+        double startZeit;
+        double endZeit;
+        int durchläufe = 2000;
+        int speed = 10;
+        int steps = 2;
+        Grafik.Reload_Ohne_Messergebnisse();
+        for(int j = steps; j <= durchläufe/speed; j++)
+        {
+            for(int i = 0; i < 1200; i = i+steps)
+            {
+                startZeit = System.nanoTime();
+                kartenAnzahl = j;
+                for(int k = 0; k < speed; k++)
+                {
+                    karten = new Liste<Karte>(); 
+                    initialisiereKarten(0);
+                    Blasensortierung();
+                }
+                endZeit = System.nanoTime();
+                d =(endZeit - startZeit);
+                d = d/1000000;
+                double avg = d/speed;            
+                Grafik.do_Test(j,avg*200,1,steps);
+                if(avg > 4)j = 1199;
+            }
+            Grafik.Reload_Ohne_Messergebnisse();
         }
     }
 
