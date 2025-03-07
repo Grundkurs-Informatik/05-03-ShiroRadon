@@ -69,13 +69,13 @@ public class Grafik extends Ereignisanwendung
         pen.dreheBis(0);
     }
 
-    public void do_Test(int x, double y, int algo, int steps,int current)
+    public void do_Test(int x, double y, int algo, int steps,int current,int speed)
     {
         stepos = steps;
         switch(algo)
         {
                 case(1):
-                Average(x,stepos,y,1,current);
+                Average(x,stepos,y,1,current,speed);
                 pen.setzeFarbe(0);
                 pen.bewegeBis(100+(x-stepos),-BubbleSave[x-stepos][0]+810);
                 pen.runter();
@@ -102,16 +102,15 @@ public class Grafik extends Ereignisanwendung
 
     }
 
-    public void Average(int x,int steps,double y,int algo,int current)
+    public void Average(int x,int steps,double y,int algo,int current,int speed)
     {
-        BubbleSave[x][0] = 0;
         BubbleSave[x][current] = y;
+        double temp = 0;
         for(int i = 0;i < current;i = i + steps)
         {
-            BubbleSave[x][0] = BubbleSave[x][0] + BubbleSave[x][i];
-            BubbleSave[x][0] = BubbleSave[x][0]/(current/steps);
-            i = i + steps;
+            temp = temp + BubbleSave[x][i];            
         }
+        if(current  > 1)BubbleSave[x][0] = temp/current;
     }
 
     public void Do(int x,double y, int algo,int steps)

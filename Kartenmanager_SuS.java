@@ -276,8 +276,8 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         double startZeit;
         double endZeit;
         int durchläufe = 20000;
-        int speed = 10;
-        int steps = 1;
+        int speed = 1;
+        int steps = 2;
         Grafik.Reload_Ohne_Messergebnisse();
         for(int j = 0; j <= durchläufe/speed; j++)
         {
@@ -295,7 +295,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
                 d =(endZeit - startZeit);
                 d = d/1000000;
                 double avg = d/speed;            
-                Grafik.do_Test(i,avg*200,1,steps,j*speed);
+                Grafik.do_Test(i,avg*200,1,steps,j*speed,speed);
                 if(avg > 4)i = 1199;
             }
             /*
