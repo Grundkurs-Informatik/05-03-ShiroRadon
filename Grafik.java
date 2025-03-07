@@ -69,13 +69,13 @@ public class Grafik extends Ereignisanwendung
         pen.dreheBis(0);
     }
 
-    public void do_Test(int x, double y, int algo, int steps)
+    public void do_Test(int x, double y, int algo, int steps,int current)
     {
         stepos = steps;
         switch(algo)
         {
                 case(1):
-                Average(x,stepos,y,1);
+                Average(x,stepos,y,1,current);
                 pen.setzeFarbe(0);
                 pen.bewegeBis(100+(x-stepos),-BubbleSave[x-stepos][0]+810);
                 pen.runter();
@@ -83,7 +83,7 @@ public class Grafik extends Ereignisanwendung
                 pen.hoch();
                 break;
                 case(2):
-                
+
                 pen.setzeFarbe(1);
                 pen.bewegeBis(100+(x-stepos),-InsertSave[x-stepos][0]+810);
                 pen.runter();
@@ -91,7 +91,7 @@ public class Grafik extends Ereignisanwendung
                 pen.hoch();
                 break;
                 case(3):
-                
+
                 pen.setzeFarbe(2);
                 pen.bewegeBis(100+(x-stepos),-MergeSave[x-stepos][0]+810);
                 pen.runter();
@@ -101,16 +101,19 @@ public class Grafik extends Ereignisanwendung
         }
 
     }
-    public void Average(int x,int steps,double y,int algo)
+
+    public void Average(int x,int steps,double y,int algo,int current)
     {
-        int i = 0;
-        while(i < 1200)
+        BubbleSave[x][0] = 0;
+        BubbleSave[x][current] = y;
+        for(int i = 0;i < current;i = i + steps)
         {
             BubbleSave[x][0] = BubbleSave[x][0] + BubbleSave[x][i];
-            BubbleSave[x][0] = BubbleSave[x][0]/(x/steps);
+            BubbleSave[x][0] = BubbleSave[x][0]/(current/steps);
             i = i + steps;
         }
     }
+
     public void Do(int x,double y, int algo,int steps)
     {
         stepos = steps;
