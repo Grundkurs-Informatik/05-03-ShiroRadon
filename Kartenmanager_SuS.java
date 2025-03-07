@@ -125,8 +125,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         updateKnopf.setzeBearbeiterGeklickt("Update_Klick");
         einfKnopf.setzeBearbeiterGeklickt("Einfuegen_Klick");
         entfKnopf.setzeBearbeiterGeklickt("Entfernen_Klick");
-        WARNUNG.setzeBearbeiterGeklickt("GrafikSort");
-
+        WARNUNG.setzeBearbeiterGeklickt("Grafiksort_Test");
         // 5) Listen-Datenstruktur anlegen
         karten = new Liste<Karte>(); 
         // => "kartenAnzahl" als "logische" Größe, 
@@ -213,7 +212,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         double d = 0;
         double startZeit;
         double endZeit;
-        int durchläufe = 2000;
+        int durchläufe = 200;
         int steps = 2;
         for(int i = steps; i < 1199; i = i+steps)
         {

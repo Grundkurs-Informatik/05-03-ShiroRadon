@@ -75,7 +75,7 @@ public class Grafik extends Ereignisanwendung
         switch(algo)
         {
                 case(1):
-                
+                Average(x,stepos,y,1);
                 pen.setzeFarbe(0);
                 pen.bewegeBis(100+(x-stepos),-BubbleSave[x-stepos][0]+810);
                 pen.runter();
@@ -101,9 +101,15 @@ public class Grafik extends Ereignisanwendung
         }
 
     }
-    public void Average(int[][] pimmel,int x,int steps)
+    public void Average(int x,int steps,double y,int algo)
     {
-        
+        int i = 0;
+        while(i < 1200)
+        {
+            BubbleSave[x][0] = BubbleSave[x][0] + BubbleSave[x][i];
+            BubbleSave[x][0] = BubbleSave[x][0]/(x/steps);
+            i = i + steps;
+        }
     }
     public void Do(int x,double y, int algo,int steps)
     {
