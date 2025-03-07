@@ -14,28 +14,28 @@ public class Grafik extends Ereignisanwendung
     Buntstift pen;
     Knopf reload;
     Knopf reload2;
-    double[] BubbleSave;
-    double[] MergeSave;
-    double[] InsertSave;
+    double[][] BubbleSave;
+    double[][] MergeSave;
+    double[][] InsertSave;
     int stepos;
 
     // Konstruktor
     public Grafik()
     {
         pen = new Buntstift();
-        bildschirm().setSize(2000, 2000);
+        bildschirm().setSize(2000, 1000);
         reload = new Knopf(20,20,100,30,"Reload");
         reload2 = new Knopf(20,60,100,30,"Reload2");
         reload.setzeBearbeiterGeklickt("Reload_Ohne_Messergebnisse");
         reload2.setzeBearbeiterGeklickt("Reload_Mit_Messergebnisse");
 
-        BubbleSave = new double[1200];
-        MergeSave = new double[1200];
-        InsertSave = new double[1200];
+        BubbleSave = new double[1200][1200];
+        MergeSave = new double[1200][1200];
+        InsertSave = new double[1200][1200];
 
-        BubbleSave[0] = 0;
-        MergeSave[0] = 0;
-        InsertSave[0] = 0;
+        BubbleSave[0][0] = 0;
+        MergeSave[0][0] = 0;
+        InsertSave[0][0] = 0;
     }
 
     public void Reload_Ohne_Messergebnisse()
@@ -75,58 +75,61 @@ public class Grafik extends Ereignisanwendung
         switch(algo)
         {
                 case(1):
-                BubbleSave[x] = (BubbleSave[x]+y)/2;
+                
                 pen.setzeFarbe(0);
-                pen.bewegeBis(100+(x-stepos),-BubbleSave[x-stepos]+810);
+                pen.bewegeBis(100+(x-stepos),-BubbleSave[x-stepos][0]+810);
                 pen.runter();
-                pen.bewegeBis(100+x,-BubbleSave[x]+810);
+                pen.bewegeBis(100+x,-BubbleSave[x][0]+810);
                 pen.hoch();
                 break;
                 case(2):
-                InsertSave[x] = (InsertSave[x]+y)/2;
+                
                 pen.setzeFarbe(1);
-                pen.bewegeBis(100+(x-stepos),-InsertSave[x-stepos]+810);
+                pen.bewegeBis(100+(x-stepos),-InsertSave[x-stepos][0]+810);
                 pen.runter();
-                pen.bewegeBis(100+x,-InsertSave[x]+810);
+                pen.bewegeBis(100+x,-InsertSave[x][0]+810);
                 pen.hoch();
                 break;
                 case(3):
-                MergeSave[x] = (MergeSave[x]+y)/2;
+                
                 pen.setzeFarbe(2);
-                pen.bewegeBis(100+(x-stepos),-MergeSave[x-stepos]+810);
+                pen.bewegeBis(100+(x-stepos),-MergeSave[x-stepos][0]+810);
                 pen.runter();
-                pen.bewegeBis(100+x,-MergeSave[x]+810);
+                pen.bewegeBis(100+x,-MergeSave[x][0]+810);
                 pen.hoch();
                 break;
         }
 
     }
-
+    public void Average(int[][] pimmel,int x,int steps)
+    {
+        
+    }
     public void Do(int x,double y, int algo,int steps)
     {
         stepos = steps;
         switch(algo)
         {
                 case(1):
-                BubbleSave[x] = y;
+                BubbleSave[x][0] = y;
                 pen.setzeFarbe(0);
-                pen.bewegeBis(100+(x-stepos),-BubbleSave[x-stepos]+810);
+                pen.bewegeBis(100+(x-stepos),-BubbleSave[x-stepos][0]+810);
                 pen.runter();
                 pen.bewegeBis(100+x,-y+810);
                 pen.hoch();
                 break;
                 case(2):
-                InsertSave[x] = y;
+                InsertSave[x][0] = y;
                 pen.setzeFarbe(1);
-                pen.bewegeBis(100+(x-stepos),-InsertSave[x-stepos]+810);
+                pen.bewegeBis(100+(x-stepos),-InsertSave[x-stepos][0]+810);
                 pen.runter();
                 pen.bewegeBis(100+x,-y+810);
                 pen.hoch();
                 break;
                 case(3):
-                MergeSave[x] = y;
+                MergeSave[x][0] = y;
                 pen.setzeFarbe(2);
-                pen.bewegeBis(100+(x-stepos),-MergeSave[x-stepos]+810);
+                pen.bewegeBis(100+(x-stepos),-MergeSave[x-stepos][0]+810);
                 pen.runter();
                 pen.bewegeBis(100+x,-y+810);
                 pen.hoch();
@@ -139,17 +142,17 @@ public class Grafik extends Ereignisanwendung
     {
         for(int i = 1; i < 1200; i++)
         {
-            if(BubbleSave[i] != 0)Do(i,BubbleSave[i],1,stepos);
+            if(BubbleSave[i][0] != 0)Do(i,BubbleSave[i][0],1,stepos);
         }
 
         for(int i = 1; i < 1200; i++)
         {
-            if(InsertSave[i] != 0)Do(i,InsertSave[i],2,stepos);
+            if(InsertSave[i][0] != 0)Do(i,InsertSave[i][0],2,stepos);
         }
 
         for(int i = 1; i < 1200; i++)
         {
-            if(MergeSave[i] != 0)Do(i,MergeSave[i],3,stepos);
+            if(MergeSave[i][0] != 0)Do(i,MergeSave[i][0],3,stepos);
         }
     }
 

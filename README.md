@@ -48,9 +48,9 @@
 - Klicken Sie dafür im Browser auf `Grundkurs-Informatik`, das rechts oben neben dem Namen Ihres Repositories stehen sollte. Dies ist unsere "Organisation" auf Github, die alle Repositories aus unserem Classroom enthält.
 - Die Liste aller verfügbaren Repositories finden Sie unten oder unter dem Tab `Repository`. Besuchen Sie die Repositories mit den Sortierverfahren, die Ihnen noch fehlen. 
 - Unten finden Sie Hinweise, bei wem welche Verfahren zu finden sind. Beachten Sie dabei, dass andere Repositories **ebenso wie Ihres pseudonymisiert** sind. Die Zuordnungstabelle von Namen und Pseudonymen finden Sie am Smart-Board.
-	- _Emil, Silas, Simon_: **Merge-Sort**
-	- _Zoe, Justus, Nico, Mats, Ago, Filip_: **Select-Sort**
-	- _Dorian, Annabelle, Evan, Christian, Mohamad, Jannes_: **Insert-Sort**
+    - _Emil, Silas, Simon_: **Merge-Sort**
+    - _Zoe, Justus, Nico, Mats, Ago, Filip_: **Select-Sort**
+    - _Dorian, Annabelle, Evan, Christian, Mohamad, Jannes_: **Insert-Sort**
 - Nachdem Sie ein anderes Repository geöffnet haben, wechseln Sie den aktuellen Branch, indem Sie auf `main` klicken und aus der darunter erscheinenden Liste `sort` auswählen.
 - Kopieren Sie die benötigte Methode aus `Kartenmanager_SuS.java` und fügen Sie sie an der entsprechenden Stelle in Ihrem BlueJ-Projekt ein. Speichern Sie Ihre Änderungen jedes Mal durch `Commit/Push`.
 

@@ -125,7 +125,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         updateKnopf.setzeBearbeiterGeklickt("Update_Klick");
         einfKnopf.setzeBearbeiterGeklickt("Einfuegen_Klick");
         entfKnopf.setzeBearbeiterGeklickt("Entfernen_Klick");
-        WARNUNG.setzeBearbeiterGeklickt("Grafiksort_Test");
+        WARNUNG.setzeBearbeiterGeklickt("GrafikSort");
 
         // 5) Listen-Datenstruktur anlegen
         karten = new Liste<Karte>(); 
