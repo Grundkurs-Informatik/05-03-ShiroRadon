@@ -13,7 +13,7 @@ import sum.strukturen.*;
  * - Zeichnen ab y=150
  */
 public class Kartenmanager_SuS extends Ereignisanwendung {
-
+    //test
     // -----------------------------
     // 1) GUI-Objekte
     // -----------------------------
@@ -339,6 +339,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         }
 
     }
+
     void sort() {
         loescheAnzeige();
         double d = 0;
