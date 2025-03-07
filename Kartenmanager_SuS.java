@@ -1,4 +1,4 @@
-import sum.ereignis.*;
+    import sum.ereignis.*;
 import sum.komponenten.*;
 import sum.werkzeuge.*;
 import sum.strukturen.*;
@@ -340,7 +340,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
 
     }
 
-    void sort() {
+    public void sort() {
         loescheAnzeige();
         double d = 0;
         startZeit = System.nanoTime();
