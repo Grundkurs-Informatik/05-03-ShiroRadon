@@ -4,6 +4,7 @@ import sum.ereignis.*;
 import sum.komponenten.*;
 import sum.werkzeuge.*;
 import sum.strukturen.*;
+import java.io.*;
 /**
  * @author 
  * @version 
@@ -14,6 +15,8 @@ public class Grafik extends Ereignisanwendung
     Buntstift pen;
     Knopf reload;
     Knopf reload2;
+    Knopf write;
+    Knopf read;
     double[][] BubbleSave;
     double[][] MergeSave;
     double[][] InsertSave;
@@ -24,10 +27,14 @@ public class Grafik extends Ereignisanwendung
     {
         pen = new Buntstift();
         bildschirm().setSize(2000, 1000);
-        reload = new Knopf(20,20,100,30,"Reload");
-        reload2 = new Knopf(20,60,100,30,"Reload2");
+        reload = new Knopf(10,20,70,30,"Reload");
+        reload2 = new Knopf(10,60,70,30,"Reload2");
+        write = new Knopf(10,100,70,30,"Write");
+        read = new Knopf (10,140, 70, 30,"Read");
         reload.setzeBearbeiterGeklickt("Reload_Ohne_Messergebnisse");
         reload2.setzeBearbeiterGeklickt("Reload_Mit_Messergebnisse");
+        write.setzeBearbeiterGeklickt("Write_Array");
+        read.setzeBearbeiterGeklickt("Read_Array");
 
         BubbleSave = new double[1200][1200];
         MergeSave = new double[1200][1200];
@@ -36,6 +43,8 @@ public class Grafik extends Ereignisanwendung
         BubbleSave[0][0] = 0;
         MergeSave[0][0] = 0;
         InsertSave[0][0] = 0;
+
+        Reload_Ohne_Messergebnisse();
     }
 
     public void Reload_Ohne_Messergebnisse()
@@ -187,4 +196,126 @@ public class Grafik extends Ereignisanwendung
         Reload_Ohne_Messergebnisse();
         run();
     }
+
+    public void Write_Array()
+    {
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter("Bubblesort.txt"));
+            writer.write(Integer.toString(stepos));
+            writer.newLine();
+            for(int i = 0; i < BubbleSave.length; i += stepos)
+            {                
+                writer.write(Integer.toString(i));
+                writer.newLine();
+                writer.write(Double.toString(BubbleSave[i][0]));
+                writer.newLine();   
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter("Insertsort.txt"));
+            writer.write(Integer.toString(stepos));
+            writer.newLine();
+            for(int i = 0; i < InsertSave.length; i += stepos)
+            {                
+                writer.write(Integer.toString(i));
+                writer.newLine();
+                writer.write(Double.toString(InsertSave[i][0]));               
+                writer.newLine();   
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try{
+            BufferedWriter writer = new BufferedWriter(new FileWriter("Mergesort.txt"));
+            writer.write(Integer.toString(stepos));
+            writer.newLine();
+            for(int i = 0; i < MergeSave.length; i += stepos)
+            {                
+                writer.write(Integer.toString(i));
+                writer.newLine();
+                writer.write(Double.toString(MergeSave[i][0]));
+                writer.newLine();   
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void Read_Array() {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("Bubblesort.txt"));
+
+            stepos = Integer.parseInt(reader.readLine());
+
+            // Initialisiere BubbleSave mit einer passenden Größe (Beispielwerte!)
+            BubbleSave = new double[1200][1200]; // Falls nötig, Größe anpassen
+            String line;
+
+            while ((line = reader.readLine()) != null)
+            {
+                int x = Integer.parseInt(line);
+                BubbleSave[x][0] = Double.parseDouble(reader.readLine());
+            }
+
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            System.out.println("Fehler beim Parsen einer Zahl.");
+            e.printStackTrace();
+        }
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("InsertSort.txt"));
+
+            stepos = Integer.parseInt(reader.readLine());
+
+            // Initialisiere BubbleSave mit einer passenden Größe (Beispielwerte!)
+            InsertSave = new double[1200][1200]; // Falls nötig, Größe anpassen
+            String line;
+
+            while ((line = reader.readLine()) != null)
+            {
+                int x = Integer.parseInt(line);
+                InsertSave[x][0] = Double.parseDouble(reader.readLine());
+            }
+
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            System.out.println("Fehler beim Parsen einer Zahl.");
+            e.printStackTrace();
+        }
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("MergeSort.txt"));
+
+            stepos = Integer.parseInt(reader.readLine());
+
+            // Initialisiere BubbleSave mit einer passenden Größe (Beispielwerte!)
+            MergeSave = new double[1200][1200]; // Falls nötig, Größe anpassen
+            String line;
+
+            while ((line = reader.readLine()) != null)
+            {
+                int x = Integer.parseInt(line);
+                MergeSave[x][0] = Double.parseDouble(reader.readLine());
+            }
+
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NumberFormatException e) {
+            System.out.println("Fehler beim Parsen einer Zahl.");
+            e.printStackTrace();
+        }
+    }
 }
+
+
+
