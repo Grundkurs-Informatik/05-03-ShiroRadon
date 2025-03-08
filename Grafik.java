@@ -75,7 +75,7 @@ public class Grafik extends Ereignisanwendung
         switch(algo)
         {
                 case(1):
-                Average(x,stepos,y,1,current,speed);
+                BubbleSave = Average(x,stepos,y,1,current,speed);
                 pen.setzeFarbe(0);
                 pen.bewegeBis(100+(x-stepos),-BubbleSave[x-stepos][0]+810);
                 pen.runter();
@@ -85,6 +85,7 @@ public class Grafik extends Ereignisanwendung
                 case(2):
 
                 pen.setzeFarbe(1);
+                InsertSave = Average(x,stepos,y,2,current,speed);
                 pen.bewegeBis(100+(x-stepos),-InsertSave[x-stepos][0]+810);
                 pen.runter();
                 pen.bewegeBis(100+x,-InsertSave[x][0]+810);
@@ -93,6 +94,7 @@ public class Grafik extends Ereignisanwendung
                 case(3):
 
                 pen.setzeFarbe(2);
+                MergeSave = Average(x,stepos,y,3,current,speed);
                 pen.bewegeBis(100+(x-stepos),-MergeSave[x-stepos][0]+810);
                 pen.runter();
                 pen.bewegeBis(100+x,-MergeSave[x][0]+810);
@@ -102,15 +104,31 @@ public class Grafik extends Ereignisanwendung
 
     }
 
-    public void Average(int x,int steps,double y,int algo,int current,int speed)
-    {
-        BubbleSave[x][current] = y;
-        double temp = 0;
-        for(int i = 0;i < current;i = i + steps)
-        {
-            temp = temp + BubbleSave[x][i];            
+    public double[][] Average(int x, int steps, double y, int algo, int current, int speed) {
+        double[][] saveArray;
+
+        // Wähle das richtige Array
+        switch (algo) {
+            case 1: saveArray = BubbleSave; break;
+            case 2: saveArray = InsertSave; break;
+            case 3: saveArray = MergeSave; break;
+            default: return null; // Falls ein falscher Algorithmus übergeben wird
         }
-        if(current  > 1)BubbleSave[x][0] = temp/current;
+
+        // Aktuellen Wert speichern
+        saveArray[x][current] = y;
+        int temp = 0;
+        int count = 0;
+
+        // Durchschnitt berechnen
+        for (int i = 0; i <= current; i += speed) {
+            temp += saveArray[x][i];
+            count++;
+        }
+
+        if (count > 0) saveArray[x][0] = temp / count; // Durchschnitt speichern
+
+        return saveArray; // Das aktualisierte Array zurückgeben
     }
 
     public void Do(int x,double y, int algo,int steps)

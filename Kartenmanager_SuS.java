@@ -276,12 +276,12 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         double startZeit;
         double endZeit;
         int durchläufe = 20000;
-        int speed = 1;
+        int speed = 5;
         int steps = 2;
         Grafik.Reload_Ohne_Messergebnisse();
         for(int j = 0; j <= durchläufe/speed; j++)
         {
-            for(int i = steps; i < 1200; i = i+steps)
+            for(int i = steps; i < 450; i = i+steps)
             {
                 startZeit = System.nanoTime();
                 kartenAnzahl = i;
@@ -294,49 +294,48 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
                 endZeit = System.nanoTime();
                 d =(endZeit - startZeit);
                 d = d/1000000;
-                double avg = d/speed;            
+                double avg = d/speed; 
+
                 Grafik.do_Test(i,avg*200,1,steps,j*speed,speed);
-                if(avg > 4)i = 1199;
-            }
-            /*
-            for(int i = steps; i < 1200; i = i+steps)
-            {
-            startZeit = System.nanoTime();
-            kartenAnzahl = i;
-            for(int k = 0; k < speed; k++)
-            {
-            karten = new Liste<Karte>(); 
-            initialisiereKarten(0);
-            InsertSort();
-            }
-            endZeit = System.nanoTime();
-            d =(endZeit - startZeit);
-            d = d/1000000;
-            double avg = d/speed;            
-            Grafik.do_Test(i,avg*200,2,steps,j);
-            if(avg > 4)i = 1199;
+                if(avg > 8)i = 1199;
             }
 
             for(int i = steps; i < 1200; i = i+steps)
             {
-            startZeit = System.nanoTime();
-            kartenAnzahl = i;
-            for(int k = 0; k < speed; k++)
+                startZeit = System.nanoTime();
+                kartenAnzahl = i;
+                for(int k = 0; k < speed; k++)
+                {
+                    karten = new Liste<Karte>(); 
+                    initialisiereKarten(0);
+                    InsertSort();
+                }
+                endZeit = System.nanoTime();
+                d =(endZeit - startZeit);
+                d = d/1000000;
+                double avg = d/speed;            
+                Grafik.do_Test(i,avg*200,2,steps,j*speed,speed);
+            }
+
+            for(int i = steps; i < 1200; i = i+steps)
             {
-            karten = new Liste<Karte>(); 
-            initialisiereKarten(0);
-            mergesort();
+                startZeit = System.nanoTime();
+                kartenAnzahl = i;
+                for(int k = 0; k < speed; k++)
+                {
+                    karten = new Liste<Karte>(); 
+                    initialisiereKarten(0);
+                    mergesort();
+                }
+                endZeit = System.nanoTime();
+                d =(endZeit - startZeit);
+                d = d/1000000;
+                double avg = d/speed;            
+                Grafik.do_Test(i,avg*200,3,steps,j*speed,speed);
             }
-            endZeit = System.nanoTime();
-            d =(endZeit - startZeit);
-            d = d/1000000;
-            double avg = d/speed;            
-            Grafik.do_Test(i,avg*200,3,steps,j);
-            if(avg > 4)i = 1199;
-            }
-            */
+
             Grafik.Reload_Ohne_Messergebnisse();
-             
+
         }
 
     }
