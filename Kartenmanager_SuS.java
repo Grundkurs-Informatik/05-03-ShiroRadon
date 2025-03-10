@@ -1,4 +1,4 @@
-    import sum.ereignis.*;
+import sum.ereignis.*;
 import sum.komponenten.*;
 import sum.werkzeuge.*;
 import sum.strukturen.*;
