@@ -102,7 +102,7 @@ public class Grafik extends Ereignisanwendung
                 break;
                 case(3):
 
-                pen.setzeFarbe(2);
+                pen.setzeFarbe(7);
                 MergeSave = Average(x,stepos,y,3,current,speed);
                 pen.bewegeBis(100+(x-stepos),-MergeSave[x-stepos][0]+810);
                 pen.runter();
