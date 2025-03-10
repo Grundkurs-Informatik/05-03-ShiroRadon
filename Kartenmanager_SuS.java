@@ -115,7 +115,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         entfKnopf   = new Knopf(710, 60, 100, 30, "Entfernen");
 
         GrafikSort     = new Knopf(820, 20, 200, 30,"Grafisch Sortieren");
-        ProgressivGrafikSort = new Knopf(820,60,200,30,"Progressiv Grafisch Sortieren");
+        ProgressivGrafikSort = new Knopf(820,60,200,30,"Iterativ Grafisch Sortieren");
         tfDurchgänge_Grafiksort = new Textfeld(1040, 20, 100, 30, "200");
         tfSteps = new Textfeld(1160, 20, 100, 30, "2");
         tfSpeed = new Textfeld(1160, 60, 100, 30, "5");
