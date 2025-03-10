@@ -21,7 +21,8 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
     private Knopf updateKnopf;  // "Erneuern"
     private Knopf einfKnopf;    // "Einfügen"
     private Knopf entfKnopf;    // "Entfernen"
-    private Knopf WARNUNG;
+    private Knopf GrafikSort;
+    private Knopf ProgressivGrafikSort;
 
     private Etikett infoEtikett;    
     private Etikett labelStapelsize; 
@@ -36,6 +37,10 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
     private Textfeld tfUmfang;  // neue Stapelgröße
     private Textfeld tfPos;     // Position für Einfügen/Entfernen
     private Textfeld tfDurchgänge;
+    private Textfeld tfDurchgänge_Grafiksort;
+    private Textfeld tfSteps;
+    private Textfeld tfSpeed;
+    private Textfeld tfDurchgänge_Progressiv;
 
     private Buntstift stift;
 
@@ -109,7 +114,12 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         einfKnopf   = new Knopf(600, 60, 100, 30, "Einfügen");
         entfKnopf   = new Knopf(710, 60, 100, 30, "Entfernen");
 
-        WARNUNG     = new Knopf(820, 20, 200, 70,"NICHT DRÜCKEN!!!!!!!!");
+        GrafikSort     = new Knopf(820, 20, 200, 30,"Grafisch Sortieren");
+        ProgressivGrafikSort = new Knopf(820,60,200,30,"Progressiv Grafisch Sortieren");
+        tfDurchgänge_Grafiksort = new Textfeld(1040, 20, 100, 30, "200");
+        tfSteps = new Textfeld(1160, 20, 100, 30, "2");
+        tfSpeed = new Textfeld(1160, 60, 100, 30, "5");
+        tfDurchgänge_Progressiv = new Textfeld(1040,60,100,30,"1200");
 
         // Auswahllisten befüllen: Index 0..12 => "2..Ass"
         for(int w=1; w<=13; w++){
@@ -125,7 +135,8 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         updateKnopf.setzeBearbeiterGeklickt("Update_Klick");
         einfKnopf.setzeBearbeiterGeklickt("Einfuegen_Klick");
         entfKnopf.setzeBearbeiterGeklickt("Entfernen_Klick");
-        WARNUNG.setzeBearbeiterGeklickt("Grafiksort_Test");
+        GrafikSort.setzeBearbeiterGeklickt("Grafiksort");
+        ProgressivGrafikSort.setzeBearbeiterGeklickt("Grafiksort_Progressiv");
         // 5) Listen-Datenstruktur anlegen
         karten = new Liste<Karte>(); 
         // => "kartenAnzahl" als "logische" Größe, 
@@ -206,14 +217,16 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         stift.normal();
     }
 
-    public void GrafikSort()
+    public void Grafiksort()
     {
         Grafik = new Grafik();
         double d = 0;
         double startZeit;
         double endZeit;
-        int durchläufe = 200;
+        int durchläufe = 200; 
         int steps = 2;
+        if(tfDurchgänge_Grafiksort.inhaltIstGanzeZahl() == true) durchläufe = tfDurchgänge_Grafiksort.inhaltAlsGanzeZahl();
+        if(tfSteps.inhaltIstGanzeZahl() == true) steps = tfSteps.inhaltAlsGanzeZahl();
         for(int i = steps; i < 1199; i = i+steps)
         {
             startZeit = System.nanoTime();
@@ -269,19 +282,22 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         }
     }
 
-    public void Grafiksort_Test()
+    public void Grafiksort_Progressiv()
     {
         Grafik = new Grafik();
         double d = 0;
         double startZeit;
         double endZeit;
-        int durchläufe = 20000;
-        int speed = 200;
+        int durchläufe = 1200;
+        int speed = 5;
         int steps = 2;
+        if(tfSteps.inhaltIstGanzeZahl() == true) steps = tfSteps.inhaltAlsGanzeZahl();
+        if(tfDurchgänge_Progressiv.inhaltIstGanzeZahl() == true) durchläufe = tfDurchgänge_Progressiv.inhaltAlsGanzeZahl();
+        if(tfSpeed.inhaltIstGanzeZahl() == true) speed = tfSpeed.inhaltAlsGanzeZahl();
         Grafik.Reload_Ohne_Messergebnisse();
         for(int j = 0; j <= durchläufe/speed; j++)
         {
-            for(int i = steps; i < 1200; i = i+steps)
+            for(int i = steps; i < 450; i = i+steps)
             {
                 startZeit = System.nanoTime();
                 kartenAnzahl = i;
@@ -294,9 +310,10 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
                 endZeit = System.nanoTime();
                 d =(endZeit - startZeit);
                 d = d/1000000;
-                double avg = d/speed;            
-                Grafik.do_Test(i,avg*200,1,steps);
-                if(avg > 4)i = 1199;
+                double avg = d/speed; 
+
+                Grafik.do_Test(i,avg*200,1,steps,j*speed,speed);
+                if(avg > 8)i = 1199;
             }
 
             for(int i = steps; i < 1200; i = i+steps)
@@ -313,8 +330,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
                 d =(endZeit - startZeit);
                 d = d/1000000;
                 double avg = d/speed;            
-                Grafik.do_Test(i,avg*200,2,steps);
-                if(avg > 4)i = 1199;
+                Grafik.do_Test(i,avg*200,2,steps,j*speed,speed);
             }
 
             for(int i = steps; i < 1200; i = i+steps)
@@ -331,10 +347,11 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
                 d =(endZeit - startZeit);
                 d = d/1000000;
                 double avg = d/speed;            
-                Grafik.do_Test(i,avg*200,3,steps);
-                if(avg > 4)i = 1199;
+                Grafik.do_Test(i,avg*200,3,steps,j*speed,speed);
             }
+
             Grafik.Reload_Ohne_Messergebnisse();
+
         }
 
     }
