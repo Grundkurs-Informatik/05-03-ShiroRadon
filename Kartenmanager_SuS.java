@@ -228,7 +228,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         if(tfDurchgänge_Grafiksort.inhaltIstGanzeZahl() == true) durchläufe = tfDurchgänge_Grafiksort.inhaltAlsGanzeZahl();
         if(tfSteps.inhaltIstGanzeZahl() == true) steps = tfSteps.inhaltAlsGanzeZahl();
         Grafik = new Grafik(durchläufe);
-        for(int i = steps; i < 1199; i = i+steps)
+        for(int i = steps; i < 1200; i = i+steps)
         {
             startZeit = System.nanoTime();
             kartenAnzahl = i;
@@ -293,6 +293,12 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         int durchläufe = 20000;
         int speed = 5;
         int steps = 1;
+        double Gesamtzeit = 1;
+        double Gesamtstartzeit;
+        double Gesamtendzeit;
+        boolean first;
+        first = true;
+        
         if(tfSteps.inhaltIstGanzeZahl() == true) steps = tfSteps.inhaltAlsGanzeZahl();
         if(tfDurchgänge_Progressiv.inhaltIstGanzeZahl() == true) durchläufe = tfDurchgänge_Progressiv.inhaltAlsGanzeZahl();
         if(tfSpeed.inhaltIstGanzeZahl() == true) speed = tfSpeed.inhaltAlsGanzeZahl();
@@ -300,7 +306,8 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         Grafik.Reload_Ohne_Messergebnisse();
         for(int j = 0; j <= durchläufe/speed; j++)
         {
-            for(int i = steps; i < 400; i = i+steps)
+            Gesamtstartzeit = System.currentTimeMillis();
+            for(int i = steps; i < 350; i = i+steps)
             {
                 startZeit = System.nanoTime();
                 kartenAnzahl = i;
@@ -352,7 +359,10 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
                 double avg = d/speed;            
                 Grafik.Kurve_Zeichnen_Iterativ(i,avg*200,3,steps,j*speed,speed);
             }
-
+            Gesamtendzeit = System.currentTimeMillis();
+            if(first = true)Gesamtzeit = Gesamtstartzeit - Gesamtendzeit;
+            Grafik.Update_Infoetikett(Gesamtzeit, durchläufe - (j*speed));
+            first = false;
             Grafik.Reload_Ohne_Messergebnisse();
             Grafik.Write_Array();
         }

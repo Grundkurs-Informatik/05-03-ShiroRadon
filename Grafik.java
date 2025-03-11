@@ -36,12 +36,11 @@ public class Grafik extends Ereignisanwendung
         reload2.setzeBearbeiterGeklickt("Reload_Mit_Messergebnisse");
         write.setzeBearbeiterGeklickt("Write_Array");
         read.setzeBearbeiterGeklickt("Read_Array");
-        Info = new Etikett(1310,10,200,100,"Infos");
+        Info = new Etikett(1310,10,600,100,"Infos");
 
-        BubbleSave = new double[1200][20000];
-        MergeSave = new double[1200][20000];
-        InsertSave = new double[1200][20000];
-
+        BubbleSave = new double[1200][durchläufe+1];
+        MergeSave = new double[1200][durchläufe+1];
+        InsertSave = new double[1200][durchläufe+1];
         BubbleSave[0][0] = 0;
         MergeSave[0][0] = 0;
         InsertSave[0][0] = 0;
@@ -159,6 +158,16 @@ public class Grafik extends Ereignisanwendung
         }
 
     }
+    
+    public void Update_Infoetikett(double zeit, int Restliche_Durchläufe)
+    {
+        double Restzeit = zeit*Restliche_Durchläufe;
+        double Stunden = Restzeit/3600000;
+        Restzeit /= 60000;
+        Restzeit *= -1;
+        //Restzeit = Math.round(Restzeit);
+        Info.setzeInhalt("Verbleibende Durchläufe: "+Restliche_Durchläufe + ". Verbleibende Zeit: " + Restzeit +"min");
+    }
 
     public void run()
     {
@@ -243,13 +252,6 @@ public class Grafik extends Ereignisanwendung
             return Array;
         }
         return Array;
-    }
-
-    public void Update_Info_Etikett(double time, int durchläufe, int current)
-    {
-        int remaining = durchläufe - current;
-        double total = time*remaining;
-
     }
 }
 
