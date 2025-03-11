@@ -219,7 +219,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
 
     public void Grafiksort()
     {
-        Grafik = new Grafik();
+
         double d = 0;
         double startZeit;
         double endZeit;
@@ -227,6 +227,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         int steps = 2;
         if(tfDurchgänge_Grafiksort.inhaltIstGanzeZahl() == true) durchläufe = tfDurchgänge_Grafiksort.inhaltAlsGanzeZahl();
         if(tfSteps.inhaltIstGanzeZahl() == true) steps = tfSteps.inhaltAlsGanzeZahl();
+        Grafik = new Grafik(durchläufe);
         for(int i = steps; i < 1199; i = i+steps)
         {
             startZeit = System.nanoTime();
@@ -241,7 +242,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
             d =(endZeit - startZeit);
             d = d/1000000;
             double avg = d/durchläufe;            
-            if(avg < 4)Grafik.Do(i,avg*200,1,steps);
+            if(avg < 4)Grafik.Kurve_Zeichnen(i,avg*200,1,steps);
             if(avg > 4)i = 1199;
         }
 
@@ -259,7 +260,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
             d =(endZeit - startZeit);
             d = d/1000000;
             double avg = d/durchläufe;            
-            Grafik.Do(i,avg*200,2,steps);
+            Grafik.Kurve_Zeichnen(i,avg*200,2,steps);
             if(avg > 4)i = 1199;
         }
 
@@ -277,27 +278,29 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
             d =(endZeit - startZeit);
             d = d/1000000;
             double avg = d/durchläufe;            
-            Grafik.Do(i,avg*200,3,steps);
+            Grafik.Kurve_Zeichnen(i,avg*200,3,steps);
             if(avg > 4)i = 1199;
         }
+        Grafik.Reload_Mit_Messergebnisse();
     }
 
     public void Grafiksort_Progressiv()
     {
-        Grafik = new Grafik();
+
         double d = 0;
         double startZeit;
         double endZeit;
-        int durchläufe = 1200;
+        int durchläufe = 20000;
         int speed = 5;
-        int steps = 2;
+        int steps = 1;
         if(tfSteps.inhaltIstGanzeZahl() == true) steps = tfSteps.inhaltAlsGanzeZahl();
         if(tfDurchgänge_Progressiv.inhaltIstGanzeZahl() == true) durchläufe = tfDurchgänge_Progressiv.inhaltAlsGanzeZahl();
         if(tfSpeed.inhaltIstGanzeZahl() == true) speed = tfSpeed.inhaltAlsGanzeZahl();
+        Grafik = new Grafik(durchläufe);
         Grafik.Reload_Ohne_Messergebnisse();
         for(int j = 0; j <= durchläufe/speed; j++)
         {
-            for(int i = steps; i < 450; i = i+steps)
+            for(int i = steps; i < 400; i = i+steps)
             {
                 startZeit = System.nanoTime();
                 kartenAnzahl = i;
@@ -312,8 +315,8 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
                 d = d/1000000;
                 double avg = d/speed; 
 
-                Grafik.do_Test(i,avg*200,1,steps,j*speed,speed);
-                if(avg > 8)i = 1199;
+                Grafik.Kurve_Zeichnen_Iterativ(i,avg*200,1,steps,j*speed,speed);
+
             }
 
             for(int i = steps; i < 1200; i = i+steps)
@@ -330,7 +333,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
                 d =(endZeit - startZeit);
                 d = d/1000000;
                 double avg = d/speed;            
-                Grafik.do_Test(i,avg*200,2,steps,j*speed,speed);
+                Grafik.Kurve_Zeichnen_Iterativ(i,avg*200,2,steps,j*speed,speed);
             }
 
             for(int i = steps; i < 1200; i = i+steps)
@@ -347,13 +350,12 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
                 d =(endZeit - startZeit);
                 d = d/1000000;
                 double avg = d/speed;            
-                Grafik.do_Test(i,avg*200,3,steps,j*speed,speed);
+                Grafik.Kurve_Zeichnen_Iterativ(i,avg*200,3,steps,j*speed,speed);
             }
 
             Grafik.Reload_Ohne_Messergebnisse();
-
+            Grafik.Write_Array();
         }
-
     }
 
     public void sort() {
@@ -593,3 +595,4 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
         }
     }
 }
+
