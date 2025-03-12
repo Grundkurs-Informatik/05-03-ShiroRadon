@@ -415,18 +415,18 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
     void mergesort() {
         int[][] KartenArray = new int[karten.laenge()][2]; // falls karten eine eigene Liste ist, dann karten.laenge()
         Karte a;
-
+//Liste in einen Array kopieren
         for (int i = 0; i < KartenArray.length; i++) { 
             karten.geheZuPosition(i + 1);
             a = karten.aktuellesElement();
             KartenArray[i][0] = a.wert;
             KartenArray[i][1] = a.farbe;
         }
-
+//Array aufteilen und sortierten Array empfangen
         KartenArray = split(KartenArray, KartenArray.length);
-
+//Liste neu erstellen
         karten = new Liste<Karte>(); 
-
+//Sortierten Array in Liste zurückkopieren
         for (int i = 0; i < KartenArray.length; i++) {
             int w = KartenArray[i][0];
             int f = KartenArray[i][1];
@@ -434,8 +434,9 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
             karten.fuegeDahinterEin(new Karte(w, f));
         }
     }
-
+//Methode zum Aufteilen des Arrays
     int[][] split(int[][] arr, int length) {
+        //Array in l und r aufteilen
         if (length <= 1) return arr;
 
         int mitte = length / 2;
@@ -446,19 +447,19 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
             if (i < mitte) l[i] = arr[i];
             else r[i - mitte] = arr[i];
         }
-
+//Teilarrays wieder aufteilen und sortierte Teilarrays empfangen
         l = split(l, l.length);
         r = split(r, r.length);
-
+//Arrays mergen
         return merge(l, r);
     }
-
+//Methode zum mergen von zwei Arrays und dessen sortierung mit Bubblesort
     int[][] merge(int[][] arr1, int[][] arr2) {        
         int totalLength = arr1.length + arr2.length;
         int[][] merged = new int[totalLength][2];
 
         int i = 0, j = 0, k = 0;
-
+//Zusammenfügen und Sortieren
         while (i < arr1.length && j < arr2.length) {
             if (arr1[i][0] < arr2[j][0] || (arr1[i][0] == arr2[j][0] && arr1[i][1] < arr2[j][1])) {
                 merged[k++] = arr1[i++];
@@ -469,7 +470,7 @@ public class Kartenmanager_SuS extends Ereignisanwendung {
 
         while (i < arr1.length) merged[k++] = arr1[i++];
         while (j < arr2.length) merged[k++] = arr2[j++];
-
+//Sortierten gemergeden Array zurückgeben
         return merged;
     }
 
